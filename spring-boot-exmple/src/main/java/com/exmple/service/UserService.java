@@ -6,6 +6,8 @@ import com.exmple.exception.UserException;
 import com.exmple.mapper.UserMapper;
 import com.exmple.model.*;
 import com.exmple.repository.UserRepository;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +36,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Cacheable(cacheNames = "user",key="#id")
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -100,6 +103,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodePassword);
     }
 
+    @CachePut(cacheNames = "user" ,key = "#id")
     public UpdateResponse update(Integer id, UpdateRequest request) throws BaseException {
         Optional<User> opt = userRepository.findById(id);
         //validate data
