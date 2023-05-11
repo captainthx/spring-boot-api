@@ -31,12 +31,12 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
     }
-
+    @Cacheable(cacheNames = "user",key="#id",unless = "#result = null")
     public User findById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Cacheable(cacheNames = "user",key="#id")
+    @Cacheable(cacheNames = "user",key="#id",unless = "#result = null")
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -103,7 +103,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodePassword);
     }
 
-    @CachePut(cacheNames = "user" ,key = "#id")
+    @CachePut(cacheNames = "user" ,key = "#id",unless = "#result = null")
     public UpdateResponse update(Integer id, UpdateRequest request) throws BaseException {
         Optional<User> opt = userRepository.findById(id);
         //validate data

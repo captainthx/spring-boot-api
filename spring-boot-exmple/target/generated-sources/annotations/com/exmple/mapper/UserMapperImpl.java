@@ -7,8 +7,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-11T09:36:14+0700",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.34.0.v20230413-0857, environment: Java 17.0.7 (Eclipse Adoptium)"
+    date = "2023-05-11T14:23:30+0700",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Eclipse Adoptium)"
 )
 public class UserMapperImpl implements UserMapper {
 
@@ -34,8 +34,8 @@ public class UserMapperImpl implements UserMapper {
 
         UpdateResponse updateResponse = new UpdateResponse();
 
-        updateResponse.setEmail( user.getEmail() );
         updateResponse.setName( user.getName() );
+        updateResponse.setEmail( user.getEmail() );
 
         return updateResponse;
     }
